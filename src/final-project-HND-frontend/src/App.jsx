@@ -1,30 +1,34 @@
-import { useState } from 'react';
-import { final_project_HND_backend } from 'declarations/final-project-HND-backend';
+import React from 'react';
+import './components/Navbar/Navbar'
+import Navbar from './components/Navbar/Navbar';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Shop from './pages/Shop';
+import Product from './pages/Product';
+import ShopCategory from './pages/ShopCategory';
+import LoginSignUp from './pages/LoginSignUp';
+import Cart from './pages/Cart';
 
 function App() {
-  const [greeting, setGreeting] = useState('');
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    final_project_HND_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
-  }
 
   return (
-    <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
-    </main>
+    <div>
+      <BrowserRouter>
+
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Shop/>} />
+        <Route path="/men" element={<ShopCategory category="men"/>} />
+        <Route path="/women" element={<ShopCategory category="women"/>} />
+        <Route path="/kids" element={<ShopCategory category="kid"/>} />
+        <Route path="/product" element={<Product/>}>
+          <Route path=":productId" element={<Product/>} />
+        </Route>
+        <Route path="/cart" element={<Cart/>} />
+        <Route path="/login" element={<LoginSignUp/>} />
+      </Routes>
+
+      </BrowserRouter>
+    </div>
   );
 }
 
