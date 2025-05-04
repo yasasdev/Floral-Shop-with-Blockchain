@@ -14,5 +14,8 @@
   "type": "module",
   "workspaces": [
     "src/final-project-HND-frontend"
-  ]
+  ],
+  "dependencies": {
+    "react-router-dom": "^7.5.3"
+  }
 }
