@@ -1,71 +1,130 @@
+:root {
+    /* Color variables */
+    --color-primary: #FF4141;
+    --color-text-primary: #171717;
+    --color-text-secondary: #616161;
+    --color-border: #e0e0e0;
+    --color-background: #ffffff;
+    --color-background-hover: #f5f5f5;
+    
+    /* Spacing variables */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    /* Font sizes */
+    --font-size-xs: 0.875rem;
+    --font-size-sm: 1rem;
+    --font-size-md: 1.125rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    
+    /* Border radius */
+    --border-radius-sm: 0.25rem;
+    --border-radius-md: 0.5rem;
+    --border-radius-lg: 2rem;
+}
+  
 .navbar {
     display: flex;
-    justify-content: space-around;
-    padding: 16px;
-    box-shadow: 0 1px 3px -2px black;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    background-color: var(--color-background);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
-
+  
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--spacing-sm);
 }
-
+  
 .nav-logo p {
-    color: #171717;
-    font-size: 24px;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-xl);
     font-weight: 600;
+    margin: 0;
 }
-
+  
 .nav-menu {
     display: flex;
     align-items: center;
     list-style: none;
-    gap: 50px;
-    color: hsl(0, 0%, 38%);
-    font-size: 20px;
+    gap: var(--spacing-xl);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-md);
     font-weight: 500;
+    margin: 0;
+    padding: 0;
 }
-
+  
 .nav-menu li {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1px;
+    gap: 2px;
     cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
 }
-
-.nav-menu hr {
-    border: none;
-    width: 80%;
+  
+.nav-menu li:hover {
+    color: var(--color-text-primary);
+}
+  
+.nav-menu li::after {
+    content: '';
+    width: 0;
     height: 3px;
-    border-radius: 10px;
-    background: #FF4141;
+    background: var(--color-primary);
+    border-radius: var(--border-radius-sm);
+    transition: width 0.3s ease;
 }
-
+  
+.nav-menu li:hover::after,
+.nav-menu li.active::after {
+    width: 80%;
+}
+  
 .nav-login-cart {
     display: flex;
     align-items: center;
-    gap: 45px;
+    gap: var(--spacing-lg);
 }
-
+  
 .nav-login-cart button {
-    width: 110px;
-    height: 40px;
-    outline: none;
-    border: 1px solid #7a7a7a;
-    border-radius: 75px;
-    color: #515151;
-    font-size: 20px;
+    padding: var(--spacing-xs) var(--spacing-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-lg);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
     font-weight: 500;
-    background: white;
+    background: var(--color-background);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+  
+.nav-login-cart button:hover {
+    background: var(--color-background-hover);
+    border-color: var(--color-text-secondary);
+}
+  
+.nav-login-cart button:active {
+    transform: scale(0.98);
+}
+  
+.nav-cart-icon {
+    position: relative;
     cursor: pointer;
 }
-.nav-login-cart button:active {
-    background: #f3f3f3;
-}
-
+  
 .nav-cart-count {
     width: 22px;
     height: 22px;
@@ -73,8 +132,44 @@
     justify-content: center;
     align-items: center;
     margin-top: -35px;
-    margin-left: -55px;
+    margin-left: -35px;
     border-radius: 11px;
     font-size: 14px;
     background: red;
 }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .navbar {
+      padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .nav-menu {
+      gap: var(--spacing-md);
+      font-size: var(--font-size-sm);
+    }
+    
+    .nav-login-cart {
+      gap: var(--spacing-md);
+    }
+    
+    .nav-login-cart button {
+      padding: var(--spacing-xs) var(--spacing-md);
+      font-size: var(--font-size-xs);
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .navbar {
+      justify-content: space-between;
+    }
+    
+    .nav-menu {
+      display: none; 
+    }
+    
+    .nav-logo p {
+      font-size: var(--font-size-lg);
+    }
+  }
+
