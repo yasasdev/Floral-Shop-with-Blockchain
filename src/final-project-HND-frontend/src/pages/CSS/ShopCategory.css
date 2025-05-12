@@ -31,3 +31,17 @@
 .shopcategory-products img {
     border-radius: 20px;
 }
+
+.shopcategory-loadmore {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 150px auto;
+    width: 150px;
+    height: 50px;
+    border-radius: 75px;
+    background: #bbb9b9;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
