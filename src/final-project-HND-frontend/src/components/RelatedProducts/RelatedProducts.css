@@ -1,0 +1,38 @@
+.related-products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    height: auto;
+    min-height: 80vh;
+    padding-bottom: 30px;
+}
+
+.related-products h1 {
+    color: #171717;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.related-products hr {
+    width: 200px;
+    height: 6px;
+    border-radius: 10px;
+    background: #252525;
+    margin-top: 10px;
+}
+
+.related-products-items {
+    margin-top: 40px;
+    display: flex;
+    gap: 1px;
+}
+
+.related-products-items img {
+    max-width: 250px;
+    height: auto;
+}
+
+.related-products-items .item {
+    max-width: 280px;
+}
