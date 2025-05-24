@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 // Connect connection with MongoDB
-mongoose.connect("mongodb+srv://yasasDev:yasasDev123@cluster0.e6cs3fm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+mongoose.connect("mongodb+srv://yasasDev:yasasDev123@cluster0.e6cs3fm.mongodb.net/e-commerce");
 
 // API Creation
 
@@ -37,6 +37,91 @@ app.post("/upload", upload.single('product'), (req, res) => {
         image_url: `http://localhost:${port}/images/${req.file.filename}`
     })
 })
+
+// Schema for creating products
+const Product = mongoose.model("Product", {
+  id:{
+    type: Number,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  new_price: {
+    type: Number,
+    required: true
+  },
+  old_price: {
+    type: Number,
+    required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  available: {
+    type: Boolean,
+    default: true
+  }
+})
+
+app.post('/addproduct', async (req, res) => {
+  let products = await Product.find({});
+  let id;
+
+  if(products.length > 0) {
+    let last_product_array = products.slice(-1);
+    let last_product = last_product_array[0];
+    id = last_product.id + 1;
+  } else {
+    id = 1;
+  }
+
+  const product = new Product({
+    id: id,
+    name: req.body.name,
+    image: req.body.image,
+    category: req.body.category,
+    new_price: req.body.new_price,
+    old_price: req.body.old_price,
+    available: req.body.available
+  });
+  console.log(product);
+  await product.save();
+  console.log("Product added successfully");
+  res.json({
+    success: true,
+    name: req.body.name,
+    message: "Product added successfully"
+  });
+});
+
+// Creating API for Deleting products
+app.post('/removeproduct', async (req, res) => {
+  await Product.findOneAndDelete({ id: req.body.id });
+  console.log("Product removed successfully");
+  res.json({
+    success: true,
+    name: req.body.name,
+    message: "Product removed successfully"
+  });
+});
+
+// Creating API for getting all products
+app.get('/allproducts', async (req, res) => {
+  let products = await Product.find({});
+  console.log("All Products fetched successfully");
+  res.send(products);
+});
 
 app.listen(port, (err) => {
   if (!err) {
