@@ -196,7 +196,15 @@ app.post('/login', async (req, res) => {
   } else {
     res.json({success: false, errors: "Sorry, your email or password is incorrect!"});
   }
-})
+});
+
+// Creating endpoint for New Collection data
+app.get('/newcollections', async (req, res) => {
+  let products = await Product.find({});
+  let newcollection = products.slice(1).slice(-8);
+  console.log("New Collection fetched successfully");
+  res.send(newcollection);
+});
 
 app.listen(port, (err) => {
   if (!err) {
