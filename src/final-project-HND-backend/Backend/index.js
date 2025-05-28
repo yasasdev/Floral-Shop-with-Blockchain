@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
-const cors = require("cors");
+const cors = require("cors"); // Cors provide access to the server from different domains
 
 app.use(express.json());
 app.use(cors());
@@ -249,6 +249,13 @@ app.post('/removefromcart', fetchUser, async (req, res) => {
   }  
   await Users.findOneAndUpdate({_id: req.user.id}, {cartData: userData.cartData});
   res.send("Product removed from the cart successfully");
+});
+
+// Creating endpoint to get cart data
+app.post('/getcart', fetchUser, async (req, res) => {
+  // console.log("Cart data fetched");
+  let userData = await Users.findOne({_id: req.user.id});
+  res.json(userData.cartData);
 });
 
 app.listen(port, (err) => {
