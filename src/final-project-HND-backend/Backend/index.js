@@ -206,6 +206,14 @@ app.get('/newcollections', async (req, res) => {
   res.send(newcollection);
 });
 
+// Creating endpoint for Popular in Women section
+app.get('/popularinwomen', async (req, res) => {
+  let products = await Product.find({category:"women"});
+  let popular_in_women = products.slice(0,4);
+  console.log("Popular in women fetched successfully");
+  res.send(popular_in_women);
+});
+
 app.listen(port, (err) => {
   if (!err) {
     console.log(`Server running on port ${port}`);
