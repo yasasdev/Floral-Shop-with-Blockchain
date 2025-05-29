@@ -2,11 +2,16 @@ import React, { useContext } from 'react';
 import './CartItems.css';
 import { ShopContext } from '../../Context/ShopContext';
 import remove_icon from '../Assets/cart_cross_icon.png';
-import { useNavigate } from 'react-router-dom'; // <-- Import useNavigate
+import { useNavigate } from 'react-router-dom';
 
 const CartItems = () => {
   const { getTotalCartAmount, all_product, cartItems, removeFromCart } = useContext(ShopContext);
-  const navigate = useNavigate(); // <-- Initialize useNavigate
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    // Pass the total amount as a state object when navigating
+    navigate('/payment', { state: { amount: getTotalCartAmount() } });
+  };
 
   return (
     <div className='cart-items'>
@@ -61,7 +66,7 @@ const CartItems = () => {
               <h3>${getTotalCartAmount()}</h3>
             </div>
           </div>
-          <button onClick={() => navigate('/payment')}>PROCEED TO CHECKOUT</button> {/* <-- Navigate */}
+          <button onClick={handleCheckout}>PROCEED TO CHECKOUT</button>
         </div>
         <div className="cartitems-promocode">
           <p>If you have a promo code, Enter it here</p>

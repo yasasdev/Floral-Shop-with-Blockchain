@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CSS/Payment.css';
+import { useLocation } from 'react-router-dom';
 
 const Payment = () => {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     cardNumber: '',
     cardHolderName: '',
@@ -12,6 +14,16 @@ const Payment = () => {
 
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Use the amount from location state when component mounts
+  useEffect(() => {
+    if (location.state && location.state.amount) {
+      setFormData(prevState => ({
+        ...prevState,
+        amount: location.state.amount.toString()
+      }));
+    }
+  }, [location.state]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -162,6 +174,7 @@ const Payment = () => {
                 placeholder="Enter amount"
                 value={formData.amount}
                 onChange={handleChange}
+                readOnly={location.state && location.state.amount} // Make it readonly if amount was passed
               />
               {formErrors.amount && <div className="error-message">{formErrors.amount}</div>}
             </div>
