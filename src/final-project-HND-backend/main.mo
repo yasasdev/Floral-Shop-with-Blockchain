@@ -1,6 +1,6 @@
 import Principal "mo:base/Principal";
 import HashMap "mo:base/HashMap";
-import Debug "mo:base/Debug";
+// import Debug "mo:base/Debug";
 import Nat "mo:base/Nat";
 
 actor Token {
